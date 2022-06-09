@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var listCosmetic = ViewBag.Cosmetics as IEnumerable<Cosmetic>;
+    var listCompany = ViewBag.Companies as IEnumerable<Company>;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Cosmetic</h1>
+    <div class="d-flex mb-2">
+        <a asp-action="Create" asp-controller="Home" class="btn btn-success text-light" >Thêm mới sản phẩm</a>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in listCosmetic)
+            {
+                string image = "/images/" + @item.Image;
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Description</td>
+                    <td><img src="@image"/></td>
+                    <td>
+                        <a asp-controller="Home" asp-action="Edit"  asp-route-id="@item.Id" class="btn btn-warning">Chỉnh sửa </a>
+                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-danger">Xoá</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
